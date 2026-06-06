@@ -1,18 +1,7 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.4.16/schema.json",
-  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": false },
-  "files": {
-    "ignoreUnknown": false,
-    "includes": [
-      "**",
-      "!**/node_modules",
-      "!**/ios/Pods",
-      "!**/android/build",
-      "!**/ios/build",
-      "!**/dist",
-      "!**/.turbo"
-    ]
-  },
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "files": { "ignoreUnknown": false },
   "formatter": {
     "enabled": true,
     "expand": "never",
@@ -120,13 +109,5 @@
   "assist": {
     "enabled": true,
     "actions": { "source": { "organizeImports": "on" } }
-  },
-  "overrides": [
-    {
-      "includes": ["generated/**", "worker-configuration.d.ts"],
-      "linter": { "enabled": false },
-      "formatter": { "enabled": false },
-      "assist": { "enabled": false }
-    }
-  ]
+  }
 }
