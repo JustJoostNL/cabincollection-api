@@ -1,0 +1,76 @@
+generator client {
+  provider   = "prisma-client-js"
+  output     = "../generated/prisma"
+  engineType = "client"
+  runtime    = "workerd"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model users {
+  id            String     @id
+  name          String
+  email         String     @unique
+  emailVerified Boolean
+  image         String?
+  createdAt     DateTime   @db.Timestamptz(3)
+  updatedAt     DateTime   @db.Timestamptz(3)
+  sessions      sessions[]
+  accounts      accounts[]
+  passkeys      passkeys[]
+}
+
+model sessions {
+  id        String   @id
+  user      users    @relation(fields: [userId], references: [id])
+  userId    String
+  token     String   @unique
+  expiresAt DateTime @db.Timestamptz(3)
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @db.Timestamptz(3)
+  updatedAt DateTime @db.Timestamptz(3)
+}
+
+model accounts {
+  id                    String    @id
+  user                  users     @relation(fields: [userId], references: [id])
+  userId                String
+  accountId             String
+  providerId            String
+  accessToken           String?
+  refreshToken          String?
+  accessTokenExpiresAt  DateTime? @db.Timestamptz(3)
+  refreshTokenExpiresAt DateTime? @db.Timestamptz(3)
+  scope                 String?
+  idToken               String?
+  password              String?
+  createdAt             DateTime  @db.Timestamptz(3)
+  updatedAt             DateTime  @db.Timestamptz(3)
+}
+
+model verifications {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime @db.Timestamptz(3)
+  createdAt  DateTime @db.Timestamptz(3)
+  updatedAt  DateTime @db.Timestamptz(3)
+}
+
+model passkeys {
+  id           String    @id
+  name         String?
+  publicKey    String
+  user         users     @relation(fields: [userId], references: [id])
+  userId       String
+  credentialID String
+  counter      Int
+  deviceType   String
+  backedUp     Boolean
+  transports   String?
+  createdAt    DateTime? @db.Timestamptz(3)
+  aaguid       String?
+}

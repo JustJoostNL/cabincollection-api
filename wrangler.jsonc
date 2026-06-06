@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cabincollection-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-06-05",
+  "compatibility_flags": ["nodejs_compat"],
+  "routes": [
+    { "pattern": "cabincollection-api.jstt.me", "custom_domain": true }
+  ],
+  "hyperdrive": [
+    { "binding": "HYPERDRIVE", "id": "87c204035c3441e3ba696699991719e6" }
+  ]
+}
